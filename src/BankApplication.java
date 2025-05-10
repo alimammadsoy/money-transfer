@@ -17,49 +17,35 @@ public class BankApplication {
         // Create some demo accounts
         setupDemoAccounts();
 
-        // Login process
-        boolean isLoggedIn = false;
-        while (!isLoggedIn) {
-            ConsoleHelper.printMenuHeader("WELCOME TO THE BANK TRANSFER SYSTEM");
-            System.out.println("1. Login");
-            System.out.println("2. Exit");
-
-            int choice = ConsoleHelper.readIntFromConsole("Enter your choice: ", 1, 2);
-
-            switch (choice) {
-                case 1:
-                    login();
-                    isLoggedIn = (currentAccount != null);
-                    break;
-                case 2:
-                    System.out.println("Thank you for using our system. Goodbye!");
-                    System.exit(0);
-                    break;
-            }
-        }
-
-        // Main application loop
         while (true) {
-            displayMainMenu();
-            int choice = ConsoleHelper.readIntFromConsole("Enter your choice: ", 1, 5);
-
-            switch (choice) {
-                case 1:
-                    showBalance();
-                    break;
-                case 2:
-                    sendMoney();
-                    break;
-                case 3:
-                    viewTransactionHistory();
-                    break;
-                case 4:
-                    logout();
-                    return;
-                case 5:
+            if (currentAccount == null) {
+                boolean shouldExit = showLoginMenu();
+                if (shouldExit) {
                     System.out.println("Thank you for using our system. Goodbye!");
                     System.exit(0);
-                    break;
+                }
+            } else {
+                displayMainMenu();
+                int choice = ConsoleHelper.readIntFromConsole("Enter your choice: ", 1, 5);
+
+                switch (choice) {
+                    case 1:
+                        showBalance();
+                        break;
+                    case 2:
+                        sendMoney();
+                        break;
+                    case 3:
+                        viewTransactionHistory();
+                        break;
+                    case 4:
+                        logout();
+                        break;
+                    case 5:
+                        System.out.println("Thank you for using our system. Goodbye!");
+                        System.exit(0);
+                        break;
+                }
             }
         }
     }
@@ -68,6 +54,25 @@ public class BankApplication {
         accountService.createAccount("1111222233334444", "Ali Mammadov", 1000.0, "1234");
         accountService.createAccount("5555666677778888", "Sahrab Suleymanov", 2000.0, "5678");
         accountService.createAccount("9999000011112222", "Javid Umudov", 1500.0, "9012");
+        accountService.createAccount("3333444455556666", "Farman Hasanli", 3000.0, "3456");
+    }
+
+    private static boolean showLoginMenu() {
+        ConsoleHelper.printMenuHeader("WELCOME TO THE BANK TRANSFER SYSTEM");
+        System.out.println("1. Login");
+        System.out.println("2. Exit");
+
+        int choice = ConsoleHelper.readIntFromConsole("Enter your choice: ", 1, 2);
+
+        switch (choice) {
+            case 1:
+                login();
+                return false;
+            case 2:
+                return true;
+            default:
+                return false;
+        }
     }
 
     private static void login() {
