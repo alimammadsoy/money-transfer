@@ -65,9 +65,9 @@ public class BankApplication {
     }
 
     private static void setupDemoAccounts() {
-        accountService.createAccount("1111222233334444", "John Doe", 1000.0, "1234");
-        accountService.createAccount("5555666677778888", "Jane Smith", 2000.0, "5678");
-        accountService.createAccount("9999000011112222", "Bob Johnson", 1500.0, "9012");
+        accountService.createAccount("1111222233334444", "Ali Mammadov", 1000.0, "1234");
+        accountService.createAccount("5555666677778888", "Sahrab Suleymanov", 2000.0, "5678");
+        accountService.createAccount("9999000011112222", "Javid Umudov", 1500.0, "9012");
     }
 
     private static void login() {
